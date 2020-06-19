@@ -13,7 +13,12 @@ export default (state, action) => {
           expense: action.payload.spend,
           balance: action.payload.remain
       }
-      default:
-        return state;
+      case mode.REMOVE_TRANSECTION:
+        return {
+          ...state,
+          transections: state.transections.filter(trans => trans.id !== action.payload)
+        }
+        default:
+          return state;
   }
 };

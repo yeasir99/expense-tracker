@@ -13,8 +13,13 @@ const TrackerState = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { transections, income, expense, balance } = state;
 
+  // Add transection
+
   const addTransection = (detail) =>
     dispatch({ type: mode.ADD_TRANSECTION, payload: detail });
+
+  // Count Balance
+
   const countBalance = () => {
     let earn = 0;
     let spend = 0;
@@ -31,6 +36,10 @@ const TrackerState = ({ children }) => {
     });
   };
 
+  //remove transection
+  const removeTransection = (id) =>
+    dispatch({ type: mode.REMOVE_TRANSECTION, payload: id });
+
   return (
     <trackerContext.Provider
       value={{
@@ -40,6 +49,7 @@ const TrackerState = ({ children }) => {
         transections,
         addTransection,
         countBalance,
+        removeTransection,
       }}
     >
       {children}
