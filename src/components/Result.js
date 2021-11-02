@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import trackerContext from "../conetx/trackerContext";
+import { useTracker } from './../conetx/TrackerState';
 const Result = () => {
-  const { balance, income, expense } = useContext(trackerContext);
+  const [{ balance, income, expense }] = useTracker();
   return (
     <div className="my-2">
       <h3>YOUR BALANCE</h3>

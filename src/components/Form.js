@@ -1,33 +1,31 @@
-import React, { useState, useContext } from "react";
-import trackerContext from "../conetx/trackerContext";
-import { v4 as uuidv4 } from "uuid";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTracker } from './../conetx/TrackerState';
+import 'react-toastify/dist/ReactToastify.css';
+import { addTransection, countBalance } from './../conetx/trackerAction';
 
 const Form = () => {
-  const [inc, setInc] = useState("");
-  const [exp, setExp] = useState("");
-  const [desc, setDesc] = useState("");
-  const { addTransection, countBalance, transections, balance } = useContext(
-    trackerContext
-  );
+  const [inc, setInc] = useState('');
+  const [exp, setExp] = useState('');
+  const [desc, setDesc] = useState('');
+  const [{ transections, balance }, dispatch] = useTracker();
 
   // handle form submit
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const id = uuidv4();
     if (inc && desc) {
-      addTransection({ id, type: "income", amount: inc, desc });
-      setInc("");
-      setDesc("");
+      addTransection(dispatch, { id, type: 'income', amount: inc, desc });
+      setInc('');
+      setDesc('');
     } else if (exp && desc && balance >= exp) {
-      addTransection({ id, type: "expense", amount: exp, desc });
-      setExp("");
-      setDesc("");
+      addTransection(dispatch, { id, type: 'expense', amount: exp, desc });
+      setExp('');
+      setDesc('');
     } else if (!inc && !exp && !desc) {
-      toast.error("Please add Income or Expense and Description");
+      toast.error('Please add Income or Expense and Description');
     } else if (balance < exp)
       toast.error("You don't Have enough money to spend");
   };
@@ -35,7 +33,7 @@ const Form = () => {
   // Update Balance
 
   useEffect(() => {
-    countBalance();
+    countBalance(dispatch, transections);
     // eslint-disable-next-line
   }, [transections]);
 
@@ -53,7 +51,7 @@ const Form = () => {
             name="income"
             id="income"
             value={inc}
-            onChange={(e) => setInc(e.target.value)}
+            onChange={e => setInc(e.target.value)}
             disabled={exp}
           />
         </div>
@@ -66,7 +64,7 @@ const Form = () => {
             name="expense"
             id="expense"
             value={exp}
-            onChange={(e) => setExp(e.target.value)}
+            onChange={e => setExp(e.target.value)}
             disabled={inc}
           />
         </div>
@@ -80,7 +78,7 @@ const Form = () => {
           name="description"
           id="description"
           value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          onChange={e => setDesc(e.target.value)}
         />
       </div>
       <input type="submit" className="btn btn-primary mt-1" />

@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
-import trackerContext from "../conetx/trackerContext";
-import SingleTrans from "./SingleTrans";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useTracker } from './../conetx/TrackerState';
+import SingleTrans from './SingleTrans';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const Transection = () => {
-  const { transections } = useContext(trackerContext);
+  const [{ transections }] = useTracker();
   return (
     <div>
       <div className="text-center">
         <h3
           className="d-inline-block py-2"
           style={{
-            borderBottom: "1px solid #0e9aa7",
+            borderBottom: '1px solid #0e9aa7',
           }}
         >
           Transection History
@@ -19,7 +18,7 @@ const Transection = () => {
       </div>
       <TransitionGroup>
         {transections.length !== 0 &&
-          transections.map((trans) => (
+          transections.map(trans => (
             <CSSTransition key={trans.id} timeout={500} classNames="item">
               <div className="bg-light">
                 <SingleTrans trans={trans} />
