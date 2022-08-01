@@ -1,5 +1,7 @@
-import { useTracker } from './../conetx/TrackerState';
-const Result = () => {
+import { useTracker } from '../conetx/TrackerState';
+import * as React from 'react';
+
+const Result = (): React.ReactNode => {
   const [{ balance, income, expense }] = useTracker();
   return (
     <div className="my-2">
