@@ -2,8 +2,9 @@ import { useTracker } from '../conetx/TrackerState';
 import SingleTrans from './SingleTrans';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { transectionInfo } from '../types';
+import * as React from 'react';
 
-const Transection = () => {
+const Transection = (): React.ReactNode => {
   const [{ transections }] = useTracker();
   return (
     <div>
@@ -19,10 +20,10 @@ const Transection = () => {
       </div>
       <TransitionGroup>
         {transections.length !== 0 &&
-          transections.map((trans: transectionInfo) => (
-            <CSSTransition key={trans.id} timeout={500} classNames="item">
+          transections.map((transec: transectionInfo) => (
+            <CSSTransition key={transec.id} timeout={500} classNames="item">
               <div className="bg-light">
-                <SingleTrans trans={trans} />
+                <SingleTrans trans={transec} />
               </div>
             </CSSTransition>
           ))}
