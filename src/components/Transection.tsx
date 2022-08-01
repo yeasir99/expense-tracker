@@ -1,13 +1,7 @@
 import { useTracker } from '../conetx/TrackerState';
 import SingleTrans from './SingleTrans';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
-type transectionInfo = {
-  amount: string;
-  desc: string;
-  id: string;
-  type: string;
-};
+import { transectionInfo } from '../types';
 
 const Transection = () => {
   const [{ transections }] = useTracker();
