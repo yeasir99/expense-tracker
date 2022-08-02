@@ -1,5 +1,6 @@
 import * as mode from './types';
-const trackerReducer = (state, action) => {
+import { stateTypes, actionTypes } from '../types';
+const trackerReducer = (state: stateTypes, action: actionTypes) => {
   switch (action.type) {
     case mode.ADD_TRANSECTION:
       return {
