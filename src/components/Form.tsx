@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ToastContainer, toast } from 'react-toastify';
-import { useTracker } from './../conetx/TrackerState';
+import { useTracker } from '../conetx/TrackerState';
 import 'react-toastify/dist/ReactToastify.css';
-import { addTransection, countBalance } from './../conetx/trackerAction';
+import { addTransection, countBalance } from '../conetx/trackerAction';
+import * as React from 'react';
 
 const Form = () => {
   const [inc, setInc] = useState('');
@@ -13,7 +14,7 @@ const Form = () => {
 
   // handle form submit
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = uuidv4();
     if (inc && desc) {
@@ -52,7 +53,7 @@ const Form = () => {
             id="income"
             value={inc}
             onChange={e => setInc(e.target.value)}
-            disabled={exp}
+            disabled={exp ? true : false}
           />
         </div>
         <div className="col-auto">
@@ -65,7 +66,7 @@ const Form = () => {
             id="expense"
             value={exp}
             onChange={e => setExp(e.target.value)}
-            disabled={inc}
+            disabled={inc ? true : false}
           />
         </div>
       </div>
